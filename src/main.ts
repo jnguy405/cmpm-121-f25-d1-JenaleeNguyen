@@ -2,7 +2,7 @@ import "./style.css";
 
 // Initialize default state
 let counter = 0;
-let RPS = 1; // ricebowls per second
+const RPS = 1; // ricebowls per second
 
 // Render UI
 document.body.innerHTML = `
