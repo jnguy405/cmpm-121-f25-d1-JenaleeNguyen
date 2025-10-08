@@ -14,9 +14,21 @@ document.body.innerHTML = `
 const button = document.getElementById("icon") as HTMLButtonElement;
 const counterElement = document.getElementById("counter") as HTMLElement;
 
+// Function to update counter display
+function updateCounter() {
+  counterElement.textContent = `${counter} ricebowls`;
+}
+
 // Handle clicks
 button.addEventListener("click", () => {
   counter += RPS;
-  counterElement.textContent = `${counter} ricebowls`;
-  console.log(`Ricebowls per second (rps): ${RPS}, Total: ${counter}`);
+  updateCounter();
+  console.log(`Ricebowls per Second (RPS): ${RPS}, Total: ${counter}`);
 });
+
+// Automatic increment every second
+setInterval(() => {
+  counter += RPS;
+  updateCounter();
+  console.log(`Auto increment: ${counter} ricebowls`);
+}, 1000);
