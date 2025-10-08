@@ -1,6 +1,6 @@
-import exampleIconUrl from "./noun-paperclip-7598668-00449F.png";
 import "./style.css";
 
+// Button with ricebowl emoji
 document.body.innerHTML = `
-  <p>Example image asset: <img src="${exampleIconUrl}" class="icon" /></p>
+  <button class="icon">🍚</button>
 `;
