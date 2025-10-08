@@ -2,7 +2,7 @@ import "./style.css";
 
 // Initialize default state
 let counter = 0;
-let rps = 1; // ricebowls per second
+let RPS = 1; // ricebowls per second
 
 // Render UI
 document.body.innerHTML = `
@@ -16,7 +16,7 @@ const counterElement = document.getElementById("counter") as HTMLElement;
 
 // Handle clicks
 button.addEventListener("click", () => {
-  counter += rps;
+  counter += RPS;
   counterElement.textContent = `${counter} ricebowls`;
-  console.log(`Ricebowls per second (rps): ${rps}, Total: ${counter}`);
+  console.log(`Ricebowls per second (rps): ${RPS}, Total: ${counter}`);
 });
