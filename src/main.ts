@@ -14,21 +14,32 @@ document.body.innerHTML = `
 const button = document.getElementById("icon") as HTMLButtonElement;
 const counterElement = document.getElementById("counter") as HTMLElement;
 
-// Function to update counter display
+// Function to update counter display (whole numbers only)
 function updateCounter() {
-  counterElement.textContent = `${counter} ricebowls`;
+  counterElement.textContent = `${Math.floor(counter)} ricebowls`;
 }
 
 // Handle clicks
 button.addEventListener("click", () => {
   counter += RPS;
   updateCounter();
-  console.log(`Ricebowls per Second (RPS): ${RPS}, Total: ${counter}`);
+  console.log(
+    `Ricebowls per Second (RPS): ${RPS}, Total: ${Math.floor(counter)}`,
+  );
 });
 
-// Automatic increment every second
-setInterval(() => {
-  counter += RPS;
-  updateCounter();
-  console.log(`Auto increment: ${counter} ricebowls`);
-}, 1000);
+// Continuous growth using based on display refresh rate
+let lastTime = performance.now();
+
+function animate(time: number) {
+  const delta = (time - lastTime) / 1000; // convert ms to sec
+  lastTime = time;
+
+  counter += RPS * delta; // fractional growth
+  updateCounter(); // display as whole number
+
+  requestAnimationFrame(animate);
+}
+
+// Start animation
+requestAnimationFrame(animate);
