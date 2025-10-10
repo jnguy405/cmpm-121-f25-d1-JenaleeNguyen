@@ -1,52 +1,86 @@
-/* Page layout split into 3 vertical sections */
+/* Layout of Thirds */
 body {
   display: flex;
   height: 100vh;
   margin: 0;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
-/* Each section fills 1/3 of the viewport width */
 .section {
   flex: 1;
   display: flex;
-  justify-content: center; /* horizontal */
-  align-items: center; /* vertical */
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 
-/* Container for rice button + counter */
+/* Rice + Counter Container */
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* center counter beneath the button */
-  transform: translateY(-25%); /* move slightly upward */
+  align-items: center;
+  transform: translateY(-35%);
 }
 
-/* Rice button styling */
+/* Counter */
+.count {
+  font-size: 24px;
+  text-align: center;
+  transform: translateY(-10px);
+}
+
+/* Rice Button */
 .icon {
-  font-size: 256px;
+  position: relative;
+  font-size: 200px;
   cursor: pointer;
   background: none;
   border: none;
   outline: none;
   line-height: 1;
+  z-index: 1;
+  transition: transform 0.1s ease;
 }
 
-/* Counter styling */
-.count {
-  font-size: 24px;
-  text-align: center;
-  margin-top: 16px;
+/* Subtle glow behind the icon */
+.icon::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 0, 0.25) 0%,
+    rgba(255, 0, 0, 0.1) 40%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.4;
+  filter: blur(10px);
 }
 
-/* Upgrade button styling */
+/* Slight press effect on click */
+.icon:active {
+  transform: scale(0.95);
+}
+
+/* Upgrade Button */
 .upgrade {
   margin-top: 20px;
   font-size: 20px;
   padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.upgrade:hover:not(:disabled) {
+  transform: translateY(-2px);
 }
 
 .upgrade:disabled {
