@@ -78,17 +78,17 @@ body {
 }
 
 .upgrade-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
   width: 100%;
 }
 
 /* Upgrade Buttons */
 .upgrade {
   display: inline-block;
-  width: 100%; /* equal width to longest */
+  width: 100%;
   font-size: 20px;
   padding: 12px 24px;
   border: 2px solid #ccc;
@@ -98,7 +98,7 @@ body {
   text-align: center;
   white-space: nowrap;
   transition: background-color 0.2s ease, transform 0.2s ease;
-  min-width: max-content; /* expands to fit longest label */
+  min-width: max-content;
 }
 
 .upgrade:hover:not(:disabled) {
@@ -109,4 +109,78 @@ body {
 .upgrade:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Hover Box */
+
+/* Hidden by default */
+.upgrade-item .description,
+.upgrade-item span {
+  display: none;
+}
+
+/* Tooltip container */
+.upgrade-item::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: -260px; /* Position box to the left */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 240px;
+  padding: 10px;
+  background: #fdfdfd;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  color: #333;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  white-space: normal;
+  line-height: 1.4;
+}
+
+/* Show on hover */
+.upgrade-item::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: -260px; /* Position box to the left */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 240px;
+  padding: 10px;
+  background: rgba(30, 30, 30, 0.95);
+  border: 1px solid #888;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  white-space: pre-line;
+  line-height: 1.4;
+}
+
+.upgrade-item:hover::after {
+  opacity: 1;
+}
+
+/* Tooltip arrow */
+.upgrade-item::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent transparent rgba(30, 30, 30, 0.95);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.upgrade-item:hover::before {
+  opacity: 1;
 }
