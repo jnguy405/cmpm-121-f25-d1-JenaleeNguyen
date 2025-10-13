@@ -55,7 +55,7 @@ upgrades.forEach((upgrade, i) => {
   div.className = "upgrade-item";
   div.innerHTML = `
     <button id="upgrade-${i}" class="upgrade" disabled>
-      Buy ${upgrade.name} (Cost: ${upgrade.cost})
+      Buy ${upgrade.name} (Cost: ${upgrade.cost.toFixed(2)})
     </button>
     <span id="count-${i}">Owned: ${upgrade.count}</span>
   `;
@@ -74,6 +74,10 @@ upgrades.forEach((upgrade, i) => {
       counter -= upgrade.cost;
       upgrade.count++;
       RPS += upgrade.rate;
+
+      // Increase cost by 15% after each purchase
+      upgrade.cost *= 1.15;
+
       updateDisplay();
     }
   });
@@ -81,12 +85,13 @@ upgrades.forEach((upgrade, i) => {
 
 // Update display
 function updateDisplay() {
-  CounterElement.textContent = `${Math.floor(counter)} ricebowls`;
+  CounterElement.textContent = `${counter.toFixed(2)} ricebowls`;
   RPSElement.textContent = `${RPS.toFixed(1)} ricebowls/sec`;
 
   upgrades.forEach((upgrade, i) => {
     const btn = upgradeButtons[i];
     btn.disabled = counter < upgrade.cost;
+    btn.textContent = `Buy ${upgrade.name} (Cost: ${upgrade.cost.toFixed(2)})`;
     document.getElementById(`count-${i}`)!.textContent =
       `Owned: ${upgrade.count}`;
   });
