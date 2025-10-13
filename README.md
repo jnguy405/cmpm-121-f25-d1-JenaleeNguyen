@@ -5,3 +5,4 @@ Step 2: Implemented a counter to track the total number of ricebowls accumulated
 Step 3: Set automatic clicker to add 1 unit per second in addition to player input.
 Step 4: Utilzed RequestAnimationFrame callback to calculate frame rates + performance, continuous growth, and update counter.
 Step 5: Instantiated counter growth to zero until upgrades are purchased and the RPS increases. Added upgrade button to exchange ricebowls for RPS.
+Step 6: Defined upgrade constants, buttons, and system. Additionally, displayed the corresponding amount of times upgrades were purchased.

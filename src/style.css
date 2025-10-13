@@ -6,15 +6,17 @@ body {
   background-color: #fff;
 }
 
+/* Each third of the layout */
 .section {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  border-left: 1px solid #eee;
 }
 
-/* Rice + Counter Container */
+/* Middle section (rice + counter) */
 .container {
   display: flex;
   flex-direction: column;
@@ -22,14 +24,14 @@ body {
   transform: translateY(-35%);
 }
 
-/* Counter */
+/* Counter text */
 .count {
   font-size: 24px;
   text-align: center;
   transform: translateY(-10px);
 }
 
-/* Rice Button */
+/* Rice button */
 .icon {
   position: relative;
   font-size: 200px;
@@ -42,7 +44,7 @@ body {
   transition: transform 0.1s ease;
 }
 
-/* Subtle glow behind the icon */
+/* Glow effect behind rice */
 .icon::before {
   content: "";
   position: absolute;
@@ -64,23 +66,43 @@ body {
   filter: blur(10px);
 }
 
-/* Slight press effect on click */
+/* Press effect */
 .icon:active {
   transform: scale(0.95);
 }
 
-/* Upgrade Button */
+/* Upgrades container — right section */
+#upgrades {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transform: translateY(-10%);
+}
+
+/* Upgrade item layout */
+.upgrade-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Uniform upgrade buttons */
 .upgrade {
-  margin-top: 20px;
+  width: 240px;
+  height: 60px;
   font-size: 20px;
-  padding: 8px 16px;
-  border-radius: 8px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
   cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .upgrade:hover:not(:disabled) {
-  transform: translateY(-2px);
+  background-color: #f0f0f0;
+  transform: translateY(-3px);
 }
 
 .upgrade:disabled {
