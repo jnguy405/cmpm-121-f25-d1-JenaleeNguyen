@@ -7,3 +7,4 @@ Step 4: Utilzed RequestAnimationFrame callback to calculate frame rates + perfor
 Step 5: Instantiated counter growth to zero until upgrades are purchased and the RPS increases. Added upgrade button to exchange ricebowls for RPS.
 Step 6: Defined upgrade constants, buttons, and system. Additionally, displayed the corresponding amount of times upgrades were purchased.
 Step 7: Included exponential costs for upgrades per purchase.
+Step 8: UI components surround a rice farm life.

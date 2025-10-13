@@ -1,4 +1,4 @@
-/* Layout of Thirds */
+/* Layout */
 body {
   display: flex;
   height: 100vh;
@@ -6,7 +6,6 @@ body {
   background-color: #fff;
 }
 
-/* Each third of the layout */
 .section {
   flex: 1;
   display: flex;
@@ -16,7 +15,7 @@ body {
   border-left: 1px solid #eee;
 }
 
-/* Middle section (rice + counter) */
+/* Left Section (Rice + Counter) */
 .container {
   display: flex;
   flex-direction: column;
@@ -24,14 +23,13 @@ body {
   transform: translateY(-35%);
 }
 
-/* Counter text */
 .count {
   font-size: 24px;
   text-align: center;
   transform: translateY(-10px);
 }
 
-/* Rice button */
+/* Main Rice Button */
 .icon {
   position: relative;
   font-size: 200px;
@@ -44,7 +42,6 @@ body {
   transition: transform 0.1s ease;
 }
 
-/* Glow effect behind rice */
 .icon::before {
   content: "";
   position: absolute;
@@ -66,38 +63,42 @@ body {
   filter: blur(10px);
 }
 
-/* Press effect */
 .icon:active {
   transform: scale(0.95);
 }
 
-/* Upgrades container — right section */
+/* Upgrades Section */
 #upgrades {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 12px;
   transform: translateY(-10%);
+  width: fit-content; /* match to longest button */
 }
 
-/* Upgrade item layout */
 .upgrade-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
+  width: 100%;
 }
 
-/* Uniform upgrade buttons */
+/* Upgrade Buttons */
 .upgrade {
-  width: 240px;
-  height: 60px;
+  display: inline-block;
+  width: 100%; /* equal width to longest */
   font-size: 20px;
+  padding: 12px 24px;
   border: 2px solid #ccc;
   border-radius: 10px;
   background-color: #f9f9f9;
   cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
   transition: background-color 0.2s ease, transform 0.2s ease;
+  min-width: max-content; /* expands to fit longest label */
 }
 
 .upgrade:hover:not(:disabled) {

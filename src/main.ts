@@ -2,35 +2,36 @@ import "./style.css";
 
 // Initialize default state
 let counter = 0;
-let RPS = 0; // ricebowls per second
+let RPS = 0; // bowls per second
 let lastTime = performance.now();
 
-// Define upgrades
+// Define themed upgrades
 const upgrades = [
-  { name: "A", cost: 10, rate: 0.1, count: 0 },
-  { name: "B", cost: 100, rate: 2.0, count: 0 },
-  { name: "C", cost: 1000, rate: 50, count: 0 },
+  { name: "Rice Farmer", cost: 10, rate: 0.1, count: 0 },
+  { name: "Rice Mill", cost: 100, rate: 2.0, count: 0 },
+  { name: "Golden Wok", cost: 1000, rate: 50, count: 0 },
 ];
 
 // Render UI
 document.body.innerHTML = `
+  <!-- Left: Main click area -->
   <div class="section">
     <div class="container">
       <div class="count">
-        Counter: <span id="counter">0 ricebowls</span>
+        Total Harvest: <span id="counter">0.00 bowls of rice</span>
       </div>
       <div class="growth">
-        Growth Rate: <span id="rps">0.0 ricebowls/sec</span>
+        per second: <span id="rps">0.0</span>
       </div>
-      <button id="icon" class="icon">🍚</button>
+      <button id="icon" class="icon" title="Harvest Rice">🍚</button>
     </div>
   </div>
 
+  <!-- Middle spacer: for later graphics -->
   <div class="section"></div>
 
-  <div class="section">
-    <div class="container" id="upgrades"></div>
-  </div>
+  <!-- Right: Upgrades -->
+  <div class="section" id="upgrades"></div>
 `;
 
 // Get elements
@@ -39,7 +40,7 @@ const CounterElement = document.getElementById("counter") as HTMLElement;
 const RPSElement = document.getElementById("rps") as HTMLElement;
 const UpgradesContainer = document.getElementById("upgrades") as HTMLElement;
 
-// Handle rice button click
+// Handle rice button click (harvest action)
 RiceButton.addEventListener("click", () => {
   counter += 1;
   updateDisplay();
@@ -49,13 +50,15 @@ RiceButton.addEventListener("click", () => {
   RiceButton.classList.add("pulse");
 });
 
+// UPGRADES ----------------------------------------------------------
+
 // Generate upgrade buttons
 upgrades.forEach((upgrade, i) => {
   const div = document.createElement("div");
   div.className = "upgrade-item";
   div.innerHTML = `
     <button id="upgrade-${i}" class="upgrade" disabled>
-      Buy ${upgrade.name} (Cost: ${upgrade.cost.toFixed(2)})
+      ${upgrade.name} (Cost: ${upgrade.cost.toFixed(2)} bowls)
     </button>
     <span id="count-${i}">Owned: ${upgrade.count}</span>
   `;
@@ -75,7 +78,7 @@ upgrades.forEach((upgrade, i) => {
       upgrade.count++;
       RPS += upgrade.rate;
 
-      // Increase cost by 15% after each purchase
+      // Price increases by 15% per purchase
       upgrade.cost *= 1.15;
 
       updateDisplay();
@@ -83,15 +86,19 @@ upgrades.forEach((upgrade, i) => {
   });
 });
 
+// DISPLAY & ANIMATION --------------------------------------------
+
 // Update display
 function updateDisplay() {
-  CounterElement.textContent = `${counter.toFixed(2)} ricebowls`;
-  RPSElement.textContent = `${RPS.toFixed(1)} ricebowls/sec`;
+  CounterElement.textContent = `${counter.toFixed(2)} bowls of rice`;
+  RPSElement.textContent = `${RPS.toFixed(1)}`;
 
   upgrades.forEach((upgrade, i) => {
     const btn = upgradeButtons[i];
     btn.disabled = counter < upgrade.cost;
-    btn.textContent = `Buy ${upgrade.name} (Cost: ${upgrade.cost.toFixed(2)})`;
+    btn.textContent = `${upgrade.name} (Cost: ${
+      upgrade.cost.toFixed(2)
+    } bowls)`;
     document.getElementById(`count-${i}`)!.textContent =
       `Owned: ${upgrade.count}`;
   });
@@ -102,7 +109,7 @@ function animate(time: number) {
   const delta = (time - lastTime) / 1000;
   lastTime = time;
   counter += RPS * delta; // fractional growth
-  updateDisplay(); // display as whole number
+  updateDisplay();
   requestAnimationFrame(animate);
 }
 
