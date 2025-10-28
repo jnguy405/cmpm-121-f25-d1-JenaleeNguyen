@@ -1,8 +1,6 @@
 import "./style.css";
 
-// MAIN SETUP ---------------------------------------------------------------
-
-// Item interface
+// ====== INTERFACES ======
 interface Item {
   name: string;
   description: string;
@@ -12,12 +10,12 @@ interface Item {
   produced: number; // total bowls of rice produced so far
 }
 
-// Initialize default state
+// ====== STATE ======
 let counter = 0;
 let RPS = 0; // bowls of rice per second
 let lastTime = performance.now();
 
-// Define available upgrade items (data-driven design)
+// ====== CONFIG DATA ======
 const availableItems: Item[] = [
   {
     name: "Rice Farmer",
@@ -81,7 +79,7 @@ const availableItems: Item[] = [
   },
 ];
 
-// Render main UI layout
+// ====== DOM SETUP ======
 document.body.innerHTML = `
   <!-- Left: Main click area -->
   <div class="section">
@@ -99,15 +97,12 @@ document.body.innerHTML = `
   <div class="section" id="upgrades"></div>
 `;
 
-// DOM references
 const RiceButton = document.getElementById("icon") as HTMLButtonElement;
 const CounterElement = document.getElementById("counter") as HTMLElement;
 const RPSElement = document.getElementById("rps") as HTMLElement;
 const UpgradesContainer = document.getElementById("upgrades") as HTMLElement;
 
-// HELPER FUNCTIONS ----------------------------------------------------------
-
-// Tooltip generation
+// ====== HELPER FUNCTIONS ======
 function buildTooltip(item: Item): string {
   const individualRate = item.rate;
   const totalRate = item.rate * item.count;
@@ -126,7 +121,6 @@ function buildTooltip(item: Item): string {
   );
 }
 
-// DOM element creation
 function createUpgradeElement(item: Item, index: number): HTMLDivElement {
   const div = document.createElement("div");
   div.className = "upgrade-item";
@@ -139,11 +133,9 @@ function createUpgradeElement(item: Item, index: number): HTMLDivElement {
     <span id="count-${index}">Owned: ${item.count}</span>
     <p class="description">${item.description}</p>
   `;
-
   return div;
 }
 
-// Per-item DOM updates
 function updateItemDisplay(item: Item, index: number): void {
   const btn = upgradeButtons[index];
   btn.disabled = counter < item.cost;
@@ -156,20 +148,18 @@ function updateItemDisplay(item: Item, index: number): void {
   );
 }
 
-// Update all displays
 function updateDisplay(): void {
   CounterElement.textContent = `${counter.toFixed(2)} bowls of rice`;
   RPSElement.textContent = `${RPS.toFixed(1)}`;
   availableItems.forEach(updateItemDisplay);
 }
 
-// Animation loop for continuous production
+// ====== GAME LOOP ======
 function animate(time: number): void {
   const delta = (time - lastTime) / 1000;
   lastTime = time;
   counter += RPS * delta;
 
-  // Track per-item production
   availableItems.forEach((item) => {
     item.produced += item.rate * item.count * delta;
   });
@@ -178,9 +168,7 @@ function animate(time: number): void {
   requestAnimationFrame(animate);
 }
 
-// MAIN LOOP -------------------------------------------------------
-
-// Handle rice click
+// ====== EVENT LISTENERS ======
 RiceButton.addEventListener("click", () => {
   counter += 1;
   updateDisplay();
@@ -191,18 +179,18 @@ RiceButton.addEventListener("click", () => {
   RiceButton.classList.add("pulse");
 });
 
-// Render upgrades dynamically
+// Render upgrade elements
 availableItems.forEach((item, i) => {
   const div = createUpgradeElement(item, i);
   UpgradesContainer.appendChild(div);
 });
 
-// Collect upgrade buttons
+// Collect references to upgrade buttons
 const upgradeButtons = availableItems.map(
   (_, i) => document.getElementById(`upgrade-${i}`) as HTMLButtonElement,
 );
 
-// Handle purchase logic
+// Purchase logic
 availableItems.forEach((item, i) => {
   upgradeButtons[i].addEventListener("click", () => {
     if (counter >= item.cost) {
@@ -215,5 +203,5 @@ availableItems.forEach((item, i) => {
   });
 });
 
-// Start game loop
+// Start the game loop
 requestAnimationFrame(animate);

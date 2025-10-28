@@ -25,3 +25,5 @@
 
 10. **Step 10:** Expanded game content to include **markets, temples, dragons, and warriors**.\
     Updated UI containers, counters, and production tracking systems. Reorganized `main.ts` functions and main loops structure for more readability.
+
+11. **Change 1**: Reorganized the code with clearly labeled sections, properly grouped logic, repositioned the `upgradeButtons` declaration, and applied clean, consistent formatting.
