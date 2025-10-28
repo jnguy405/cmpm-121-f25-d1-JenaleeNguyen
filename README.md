@@ -27,3 +27,5 @@
     Updated UI containers, counters, and production tracking systems. Reorganized `main.ts` functions and main loops structure for more readability.
 
 11. **Change 1**: Reorganized the code with clearly labeled sections, properly grouped logic, repositioned the `upgradeButtons` declaration, and applied clean, consistent formatting.
+
+12. **Change 2**: Added clear and descriptive comments throughout the codebase to explain the purpose and functionality of each section, improving readability, maintainability, and overall developer understanding.

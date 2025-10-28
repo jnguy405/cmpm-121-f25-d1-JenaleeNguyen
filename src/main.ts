@@ -1,6 +1,7 @@
 import "./style.css";
 
 // ====== INTERFACES ======
+// Defines the data structure for upgrade items (e.g., name, cost, production rate)
 interface Item {
   name: string;
   description: string;
@@ -11,11 +12,13 @@ interface Item {
 }
 
 // ====== STATE ======
+// Tracks current resource count, production rate (RPS), and last frame timestamp
 let counter = 0;
 let RPS = 0; // bowls of rice per second
 let lastTime = performance.now();
 
 // ====== CONFIG DATA ======
+// List of available upgrades with their base stats and progression mechanics
 const availableItems: Item[] = [
   {
     name: "Rice Farmer",
@@ -80,6 +83,7 @@ const availableItems: Item[] = [
 ];
 
 // ====== DOM SETUP ======
+// Builds initial UI layout and caches references to key DOM elements
 document.body.innerHTML = `
   <!-- Left: Main click area -->
   <div class="section">
@@ -103,6 +107,7 @@ const RPSElement = document.getElementById("rps") as HTMLElement;
 const UpgradesContainer = document.getElementById("upgrades") as HTMLElement;
 
 // ====== HELPER FUNCTIONS ======
+// Utilities for rendering tooltips, creating/updating UI elements, and refreshing display values
 function buildTooltip(item: Item): string {
   const individualRate = item.rate;
   const totalRate = item.rate * item.count;
@@ -155,6 +160,7 @@ function updateDisplay(): void {
 }
 
 // ====== GAME LOOP ======
+// Runs continuously to update resource count and UI based on elapsed time
 function animate(time: number): void {
   const delta = (time - lastTime) / 1000;
   lastTime = time;
@@ -169,6 +175,7 @@ function animate(time: number): void {
 }
 
 // ====== EVENT LISTENERS ======
+// Handles player input: clicking the rice button and purchasing upgrades
 RiceButton.addEventListener("click", () => {
   counter += 1;
   updateDisplay();
