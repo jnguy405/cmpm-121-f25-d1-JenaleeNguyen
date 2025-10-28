@@ -12,14 +12,14 @@ interface Item {
 }
 
 // ====== STATE ======
-// Tracks current resource count, production rate (RPS), and last frame timestamp
-let counter = 0;
-let RPS = 0; // bowls of rice per second
+// Tracks current resource count, production rate, and last frame timestamp
+let resourceCount = 0;
+let productionRate = 0;
 let lastTime = performance.now();
 
 // ====== CONFIG DATA ======
 // List of available upgrades with their base stats and progression mechanics
-const availableItems: Item[] = [
+const upgrades: Item[] = [
   {
     name: "Rice Farmer",
     description: "Humble worker who plants and harvests rice by hand.",
@@ -101,9 +101,9 @@ document.body.innerHTML = `
   <div class="section" id="upgrades"></div>
 `;
 
-const RiceButton = document.getElementById("icon") as HTMLButtonElement;
+const resourceButton = document.getElementById("icon") as HTMLButtonElement;
 const CounterElement = document.getElementById("counter") as HTMLElement;
-const RPSElement = document.getElementById("rps") as HTMLElement;
+const productionRateElement = document.getElementById("rps") as HTMLElement;
 const UpgradesContainer = document.getElementById("upgrades") as HTMLElement;
 
 // ====== HELPER FUNCTIONS ======
@@ -143,7 +143,7 @@ function createUpgradeElement(item: Item, index: number): HTMLDivElement {
 
 function updateItemDisplay(item: Item, index: number): void {
   const btn = upgradeButtons[index];
-  btn.disabled = counter < item.cost;
+  btn.disabled = resourceCount < item.cost;
   btn.textContent = `${item.name} (Cost: ${item.cost.toFixed(2)} bowls)`;
   document.getElementById(`count-${index}`)!.textContent =
     `Owned: ${item.count}`;
@@ -154,9 +154,9 @@ function updateItemDisplay(item: Item, index: number): void {
 }
 
 function updateDisplay(): void {
-  CounterElement.textContent = `${counter.toFixed(2)} bowls of rice`;
-  RPSElement.textContent = `${RPS.toFixed(1)}`;
-  availableItems.forEach(updateItemDisplay);
+  CounterElement.textContent = `${resourceCount.toFixed(2)} bowls of rice`;
+  productionRateElement.textContent = `${productionRate.toFixed(1)}`;
+  upgrades.forEach(updateItemDisplay);
 }
 
 // ====== GAME LOOP ======
@@ -164,9 +164,9 @@ function updateDisplay(): void {
 function animate(time: number): void {
   const delta = (time - lastTime) / 1000;
   lastTime = time;
-  counter += RPS * delta;
+  resourceCount += productionRate * delta;
 
-  availableItems.forEach((item) => {
+  upgrades.forEach((item) => {
     item.produced += item.rate * item.count * delta;
   });
 
@@ -176,34 +176,34 @@ function animate(time: number): void {
 
 // ====== EVENT LISTENERS ======
 // Handles player input: clicking the rice button and purchasing upgrades
-RiceButton.addEventListener("click", () => {
-  counter += 1;
+resourceButton.addEventListener("click", () => {
+  resourceCount += 1;
   updateDisplay();
 
   // Click animation
-  RiceButton.classList.remove("pulse");
-  void RiceButton.offsetWidth; // reset animation
-  RiceButton.classList.add("pulse");
+  resourceButton.classList.remove("pulse");
+  void resourceButton.offsetWidth; // reset animation
+  resourceButton.classList.add("pulse");
 });
 
 // Render upgrade elements
-availableItems.forEach((item, i) => {
+upgrades.forEach((item, i) => {
   const div = createUpgradeElement(item, i);
   UpgradesContainer.appendChild(div);
 });
 
 // Collect references to upgrade buttons
-const upgradeButtons = availableItems.map(
+const upgradeButtons = upgrades.map(
   (_, i) => document.getElementById(`upgrade-${i}`) as HTMLButtonElement,
 );
 
 // Purchase logic
-availableItems.forEach((item, i) => {
+upgrades.forEach((item, i) => {
   upgradeButtons[i].addEventListener("click", () => {
-    if (counter >= item.cost) {
-      counter -= item.cost;
+    if (resourceCount >= item.cost) {
+      resourceCount -= item.cost;
       item.count++;
-      RPS += item.rate;
+      productionRate += item.rate;
       item.cost *= 1.15; // price inflation
       updateDisplay();
     }
