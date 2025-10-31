@@ -90,6 +90,7 @@ document.body.innerHTML = `
     <div class="container">
       <div class="count">Total Harvest: <span id="counter">0.00 bowls of rice</span></div>
       <div class="growth">per second: <span id="rps">0.0</span></div>
+      <div class="glow"></div>
       <button id="icon" class="icon" title="Harvest Rice">🍚</button>
     </div>
   </div>

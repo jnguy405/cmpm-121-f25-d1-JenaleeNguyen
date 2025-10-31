@@ -31,3 +31,9 @@
 12. **Change 2**: Added clear and descriptive comments throughout the codebase to explain the purpose and functionality of each section, improving readability, maintainability, and overall developer understanding.
 
 13. **Change 3**: Renamed variables such as `RPS`, `counter`, and related identifiers to more generic and reusable names for improved clarity, flexibility, and consistency across the codebase.
+
+**Inspiration Changes**:
+
+1. Changed background and button colors to soft green inspired by Melissa's soft color palette. `https://melissa21-r.github.io/D1-Increment/`.
+2. Added borders/sectioning and text color inspired by KupoDupo's layout `https://kupodupo.github.io/CMPM-121-D1-Incremental-Game/`.
+3. Implemented glow pulse animation behin my rice button inspired by Wendy's glow `https://wendyzh05.github.io/D1/`.

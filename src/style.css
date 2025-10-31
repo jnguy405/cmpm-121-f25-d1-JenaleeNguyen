@@ -3,7 +3,9 @@ body {
   display: flex;
   height: 100vh;
   margin: 0;
-  background-color: #fff;
+  background-color: rgb(178, 194, 172);
+  color: #2d4a2d;
+  overflow: hidden;
 }
 
 .section {
@@ -12,7 +14,13 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  border-left: 1px solid #eee;
+  border-left: 10px solid rgb(120, 150, 110);
+  overflow: visible;
+}
+
+/* Remove border from first section */
+.section:first-child {
+  border-left: none;
 }
 
 /* Left Section (Rice + Counter) */
@@ -27,6 +35,7 @@ body {
   font-size: 24px;
   text-align: center;
   transform: translateY(-10px);
+  color: #2d4a2d;
 }
 
 /* Main Rice Button */
@@ -38,46 +47,57 @@ body {
   border: none;
   outline: none;
   line-height: 1;
-  z-index: 1;
+  z-index: 2;
   transition: transform 0.1s ease;
-}
-
-.icon::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 120%;
-  height: 120%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 0, 0, 0.25) 0%,
-    rgba(255, 0, 0, 0.1) 40%,
-    rgba(255, 255, 255, 0) 80%
-  );
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.4;
-  filter: blur(10px);
 }
 
 .icon:active {
   transform: scale(0.95);
 }
 
+/* GLOW EFFECT (taken and adapted from flower code) */
+.glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(
+    circle,
+    rgba(134, 241, 164, 0.6) 0%,
+    transparent 70%
+  );
+  animation: glow-pulse 2s ease-in-out infinite;
+  pointer-events: none;
+  filter: blur(8px);
+  z-index: 1;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0.9;
+  }
+}
+
 /* Upgrades Section */
 #upgrades {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   gap: 12px;
-  transform: translateY(-10%);
-  width: fit-content; /* match to longest button */
+  width: fit-content;
+  transform: none;
+  margin-left: 0;
 }
 
 .upgrade-item {
+  color: white;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -91,9 +111,9 @@ body {
   width: 100%;
   font-size: 20px;
   padding: 12px 24px;
-  border: 2px solid #ccc;
+  border: 2px solid #5b4537;
   border-radius: 10px;
-  background-color: #f9f9f9;
+  background-color: #81614c;
   cursor: pointer;
   text-align: center;
   white-space: nowrap;
@@ -123,29 +143,7 @@ body {
 .upgrade-item::after {
   content: attr(data-tooltip);
   position: absolute;
-  left: -260px; /* Position box to the left */
-  top: 50%;
-  transform: translateY(-50%);
-  width: 240px;
-  padding: 10px;
-  background: #fdfdfd;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  color: #333;
-  font-size: 0.9rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-  white-space: normal;
-  line-height: 1.4;
-}
-
-/* Show on hover */
-.upgrade-item::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: -260px; /* Position box to the left */
+  left: -260px;
   top: 50%;
   transform: translateY(-50%);
   width: 240px;
@@ -161,6 +159,7 @@ body {
   transition: opacity 0.2s ease;
   white-space: pre-line;
   line-height: 1.4;
+  z-index: 10;
 }
 
 .upgrade-item:hover::after {
@@ -179,6 +178,7 @@ body {
   border-color: transparent transparent transparent rgba(30, 30, 30, 0.95);
   opacity: 0;
   transition: opacity 0.2s ease;
+  z-index: 11;
 }
 
 .upgrade-item:hover::before {
